@@ -1,0 +1,51 @@
+#lockScreen{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:99999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.lock-box{
+  text-align:center;
+  background:#0b0b0b;
+  padding:30px;
+  border-radius:14px;
+  border:2px solid var(--neon);
+  width:90%;
+  max-width:360px;
+}
+
+.lock-box h2{
+  color:var(--neon);
+  margin-bottom:10px;
+}
+
+.lock-box input{
+  width:100%;
+  padding:14px;
+  margin:12px 0;
+  border-radius:8px;
+  border:1px solid var(--accent);
+  background:#000;
+  color:#fff;
+  text-align:center;
+}
+
+.lock-box button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  font-weight:800;
+  background:var(--accent);
+  cursor:pointer;
+}
+
+#lockError{
+  color:red;
+  display:none;
+  margin-top:10px;
+}
