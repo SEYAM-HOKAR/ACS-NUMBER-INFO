@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ACS NUMBER INFO</title>
+<style>
+  :root{
+    --bg:#000;
+    --neon:#ff1f2e;
+    --accent:#ff4a52;
+    --card:#0b0b0b;
+  }
+  html,body,*{
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--bg);
+    color:#fff;
+    font-family: Inter, Arial, sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .hero{
+    margin-top:48px;
+    display:flex;
+    justify-content:center;
+    width:100%;
+  }
+  .neon{
+    font-size:40px;
+    font-weight:900;
+    color:var(--neon);
+    text-shadow:0 0 10px rgba(255,31,46,.9),0 0 30px rgba(255,31,46,.6);
+  }
+
+  .wrap{width:100%;max-width:760px;padding:0 20px;margin-top:28px}
+  .card{
+    background:#0b0b0b;
+    border-radius:14px;
+    padding:28px 20px;
+    border:1px solid rgba(255,31,46,.2);
+  }
+
+  .input-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    align-items:center;
+  }
+
+  input{
+    width:100%;
+    max-width:620px;
+    padding:16px;
+    border-radius:10px;
+    background:#000;
+    color:#fff;
+    border:2px solid rgba(255,31,46,.4);
+    text-align:center;
+  }
+
+  .btn{
+    width:100%;
+    max-width:620px;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:800;
+    background:linear-gradient(180deg,#ff4e56,#ff262e);
+    cursor:pointer;
+  }
+
+  audio{display:none}
+
+  /* 🔒 LOCK SCREEN */
+  #lockScreen{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
+  }
+
+  .lock-box{
+    background:#0b0b0b;
+    border:2px solid var(--neon);
+    border-radius:14px;
+    padding:30px;
+    text-align:center;
+    width:90%;
+    max-width:360px;
+  }
+
+  .lock-box h2{color:var(--neon)}
+  .lock-box input{
+    margin:12px 0;
+    padding:14px;
+    width:100%;
+    border-radius:8px;
+    border:1px solid var(--accent);
+    background:#000;
+    color:#fff;
+    text-align:center;
+  }
+  .lock-box button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:var(--accent);
+    font-weight:800;
+  }
+  #lockError{color:red;display:none;margin-top:10px}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+  <div class="neon">ACS NUMBER INFO</div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <div class="input-wrap">
+      <input id="phone" placeholder="Enter phone number">
+      <button id="check" class="btn">Check</button>
+    </div>
+  </section>
+</main>
+
+<!-- AUDIO -->
+<audio id="bg" src="https://files.catbox.moe/jtiodl.mp4" preload="auto" loop></audio>
+
+<!-- 🔒 LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <h2>🔒 DEVICE LOCKED</h2>
+    <p>Password দিন</p>
+    <input type="password" id="unlockPass" placeholder="Enter password">
+    <button id="unlockBtn">UNLOCK</button>
+    <p id="lockError">Wrong password</p>
+  </div>
+</div>
+
+<script>
+const btn=document.getElementById("check");
+const audio=document.getElementById("bg");
+const lockScreen=document.getElementById("lockScreen");
+const unlockBtn=document.getElementById("unlockBtn");
+const passInput=document.getElementById("unlockPass");
+const errorText=document.getElementById("lockError");
+
+const PASSWORD="ACS-T@NVIR"; // 🔑 change here
+
+btn.onclick=async()=>{
+  lockScreen.style.display="flex";
+  document.body.style.overflow="hidden";
+  await audio.play().catch(()=>{});
+};
+
+unlockBtn.onclick=()=>{
+  if(passInput.value===PASSWORD){
+    lockScreen.style.display="none";
+    document.body.style.overflow="";
+    passInput.value="";
+    errorText.style.display="none";
+  }else{
+    errorText.style.display="block";
+  }
+};
+</script>
+
+</body>
+</html>
