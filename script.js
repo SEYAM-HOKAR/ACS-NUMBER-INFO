@@ -5,41 +5,46 @@ const passInput = document.getElementById('unlockPass');
 const errorText = document.getElementById('lockError');
 const btn = document.getElementById('check');
 
-const PASSWORD = "1234"; // 🔑 change password
+const PASSWORD = "1234";
 
-/* 🔥 STEP 1: Force Fullscreen */
+/* STEP 1 */
 function goFullScreen(){
   const el = document.documentElement;
-  if(el.requestFullscreen){
-    el.requestFullscreen();
-  }else if(el.webkitRequestFullscreen){
-    el.webkitRequestFullscreen();
-  }
+  if(el.requestFullscreen) el.requestFullscreen();
+  else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 }
 
-/* Check button click */
-btn.addEventListener('click', ()=>{
-  goFullScreen();                 // ✅ fullscreen
-  lockScreen.style.display = "flex";
-  document.body.style.overflow = "hidden";
+/* STEP 2 */
+history.pushState(null,null,location.href);
+window.onpopstate = ()=>{
+  history.go(1);
+  lockScreen.style.display="flex";
+};
+
+/* STEP 3 */
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){
+    lockScreen.style.display="flex";
+  }
 });
 
-/* Unlock button */
-unlockBtn.addEventListener('click', ()=>{
-  if(passInput.value === PASSWORD){
-    lockScreen.style.display = "none";
-    document.body.style.overflow = "";
-    errorText.style.display = "none";
-    passInput.value = "";
+/* Button click */
+btn.addEventListener('click',()=>{
+  goFullScreen();
+  lockScreen.style.display="flex";
+  document.body.style.overflow="hidden";
+});
 
-    /* optional: exit fullscreen on unlock */
-    if(document.fullscreenElement){
-      document.exitFullscreen().catch(()=>{});
-    }
+/* Unlock */
+unlockBtn.addEventListener('click',()=>{
+  if(passInput.value===PASSWORD){
+    lockScreen.style.display="none";
+    document.body.style.overflow="";
+    passInput.value="";
+    errorText.style.display="none";
+    if(document.fullscreenElement) document.exitFullscreen();
   }else{
-    errorText.style.display = "block";
-    lockScreen.classList.add("shake");
-    setTimeout(()=>lockScreen.classList.remove("shake"),300);
+    errorText.style.display="block";
   }
 });
 </script>
