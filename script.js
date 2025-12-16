@@ -5,7 +5,7 @@ const passInput = document.getElementById('unlockPass');
 const errorText = document.getElementById('lockError');
 const btn = document.getElementById('check');
 
-const PASSWORD = "1234";
+const PASSWORD = "ACS-T@NVIR";
 
 /* STEP 1 */
 function goFullScreen(){
